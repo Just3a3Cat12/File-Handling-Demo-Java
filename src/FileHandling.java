@@ -1,12 +1,30 @@
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class FileHandling {
     public static void main(String[] args) {
-        System.out.println("Enter directory to work with or type \"0\" to work with current directory.\n" +
-                "You can give absolute path also.\n" +
-                "If directory is not present at given path it will create new one.");
+        System.out.println("""
+                -------------------------------------------------------------------------------------------
+                Welcome to FileOps, developed by Pankaj Ambekar!
+                
+                Easily manage files with create, delete, search, and list commands.
+                Our intuitive console interface streamlines file management,
+                generating new files and removing unnecessary ones.
+                
+                Find files by keywords with our search command or view all files in a directory with list.
+                Take control of your files today with FileOps.
+                
+                Thank you for choosing our console application for efficient file management.
+                For more information, please visit https://github.com/Just3a3Cat12/File-Handling-Demo-Java.
+                -------------------------------------------------------------------------------------------""");
+
+        System.out.println("""
+                Enter directory to work with or type "0" to work with current directory.
+                You can give absolute path also.
+                If directory is not present at given path it will create new one.""");
         Scanner scanner = new Scanner(System.in);
         String path = scanner.nextLine().replaceAll("[\\\\/]", "\\\\\\\\");
         String actPath = null;
@@ -80,16 +98,28 @@ public class FileHandling {
                     }
                     case 4 -> {//searching desired file
                         do {
-                            System.out.println("Enter file name to search : ");
-                            String searchName = scanner.nextLine();
+                            System.out.println("Enter keyword/ file name to search : ");
+                            String searchName = scanner.nextLine().toLowerCase();
+                            String seNameRegex = ".*" + searchName + ".*";
                             if (fileList.length == 0) {
+                                System.out.println("Directory is empty");
                                 break;
-                            }
-                            for (String s : fileList) {
-                                if (s.matches(searchName)) {
-                                    System.out.println("File named \"" + searchName + "\" exists in a directory");
+                            } else {
+                                List<String> seList = new ArrayList<>();
+                                for (String s : fileList) {
+                                    if (s.matches(seNameRegex)) {
+                                        seList.add(s);
+                                    }
+                                }
+                                if (seList.isEmpty()) {
+                                    System.out.println("File not found in directory");
                                 } else {
-                                    System.out.println("File does not exists");
+                                    System.out.println("Files found matching with keyword \"" + searchName + "\"");
+                                    int i = 1;
+                                    for (String s : seList) {
+                                        System.out.println(i + ". " + s);
+                                        i++;
+                                    }
                                 }
                             }
                         } while (msg() != 2);
