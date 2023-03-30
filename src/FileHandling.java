@@ -24,7 +24,8 @@ public class FileHandling {
         System.out.println("""
                 Enter directory to work with or type "0" to work with current directory.
                 You can give absolute path also.
-                If directory is not present at given path it will create new one.""");
+                If directory is not present at given path it will create new one.
+                """);
         Scanner scanner = new Scanner(System.in);
         String path = scanner.nextLine().replaceAll("[\\\\/]", "\\\\\\\\");
         String actPath = null;
