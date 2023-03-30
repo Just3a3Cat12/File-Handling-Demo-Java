@@ -5,11 +5,12 @@ import java.util.Scanner;
 public class FileHandling {
     public static void main(String[] args) {
         System.out.println("Enter directory to work with or type \"0\" to work with current directory.\n" +
-                "You can give absolute path also.");
+                "You can give absolute path also.\n" +
+                "If directory is not present at given path it will create new one.");
         Scanner scanner = new Scanner(System.in);
         String path = scanner.nextLine().replaceAll("[\\\\/]", "\\\\\\\\");
         String actPath = null;
-
+//        Creating/ Locating directory
         try {
             if (!path.equals("0")) {
                 new File(path).mkdirs();
@@ -26,7 +27,7 @@ public class FileHandling {
 
         boolean shutdown = true;
         do {
-            try {
+            try {//Printing main menu
                 File file = new File(actPath);
                 System.out.println("""
                     Choose option :
@@ -41,7 +42,7 @@ public class FileHandling {
                 String[] fileList = file.list();
                 switch (option) {
                     case 1 -> {
-                        do {
+                        do {//creating new file
                             System.out.println("Enter File name to create : ");
                             String newFileName = scanner.nextLine();
                             File file1 = new File(actPath + newFileName);
@@ -53,7 +54,7 @@ public class FileHandling {
                             }
                         } while (msg() != 2);
                     }
-                    case 2 -> {
+                    case 2 -> {//Deleting desired file
                         do {
                             System.out.println("Enter file name to delete : ");
                             String fileDelete = scanner.nextLine();
@@ -66,7 +67,7 @@ public class FileHandling {
                             }
                         } while (msg() != 2);
                     }
-                    case 3 -> {
+                    case 3 -> {//File listing
                         System.out.println("List of files in ascending order : ");
                         if (fileList.length == 0) {
                             System.out.println("Directory is empty");
@@ -77,7 +78,7 @@ public class FileHandling {
                             System.out.println(s);
                         }
                     }
-                    case 4 -> {
+                    case 4 -> {//searching desired file
                         do {
                             System.out.println("Enter file name to search : ");
                             String searchName = scanner.nextLine();
@@ -104,7 +105,7 @@ public class FileHandling {
     }
 
     public static int msg() {
-        do {
+        do {//Printing sub-menu
             System.out.println("""
                                                         
                     Options :
