@@ -24,18 +24,21 @@ public class FileHandling {
         System.out.println("""
                 Enter directory to work with or type "0" to work with current directory.
                 You can give absolute path also.
-                If directory is not present at given path it will create new one.
-                """);
+                If directory is not present at given path it will create new one.""");
         Scanner scanner = new Scanner(System.in);
         String path = scanner.nextLine().replaceAll("[\\\\/]", "\\\\\\\\");
         String actPath = null;
 //        Creating/ Locating directory
         try {
             if (!path.equals("0")) {
+                System.out.println("Directory not found at given path.\n" +
+                        "Creating new directory");
                 new File(path).mkdirs();
                 File file = new File(path);
                 actPath = file.getAbsolutePath() + "\\\\";
+                System.out.println("Directory created : " + file.exists());
             } else {
+                System.out.println("Directory found at given path");
                 File file = new File(System.getProperty("user.dir"));
                 actPath = file.getAbsolutePath() + "\\\\";
             }
@@ -77,7 +80,7 @@ public class FileHandling {
                         do {
                             System.out.println("Enter file name to delete : ");
                             String fileDelete = scanner.nextLine();
-                            File file1 = new File(fileDelete);
+                            File file1 = new File(actPath + fileDelete);
                             if (!file1.exists()) {
                                 System.out.println("File not found in directory");
                             } else {
